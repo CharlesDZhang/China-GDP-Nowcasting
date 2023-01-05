@@ -12,4 +12,4 @@ w.start()
 if w.isconnected():
     print('Wind API 连接成功！')
 else:
-    print('Wind API 连接失败，请重试！')
+    print('Wind API 连接失败，请重试！') 
