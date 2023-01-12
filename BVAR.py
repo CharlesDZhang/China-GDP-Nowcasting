@@ -58,3 +58,12 @@ for i in tqdm(range(84,124)):
     result = r(rscript)
     df_pre.iloc[i] = np.median(result[0][10][0] ,  axis = 0 )[0]
     df_pre1.iloc[i] = np.median(result[0][10][0] ,  axis = 0 )[1]
+    
+  df_GDP = df_G.shift(4)
+df_GDP =   df_pre[84:].merge( df_GDP , left_index=True, right_index=True , how= 'left')
+df_GDP['predict'] = 0
+df_GDP.iloc[:,:9] = df_GDP.iloc[:,:9] /100 + 1
+df_GDP['predict'] = (df_GDP['现价:农'] * df_GDP['不变价:农'] + df_GDP['现价:工'] * df_GDP['不变价:工'] + df_GDP['现价:建'] * df_GDP['不变价:建'] + df_GDP['现价:批'] * df_GDP['不变价:批'] + df_GDP['现价:交'] * df_GDP['不变价:交'] + df_GDP['现价:住'] * df_GDP['不变价:住'] + df_GDP['现价:金'] * df_GDP['不变价:金'] + df_GDP['现价:房'] * df_GDP['不变价:房'] + df_GDP['现价:其他'] * df_GDP['不变价:其他']) / (df_GDP['现价:农'] + df_GDP['现价:工'] + df_GDP['现价:建'] + df_GDP['现价:批'] + df_GDP['现价:交'] + df_GDP['现价:住'] + df_GDP['现价:金'] + df_GDP['现价:房'] + df_GDP['现价:其他']  )* 100 - 100
+df_GDP['predict'].iloc[-1] = (df_GDP['现价:农'].iloc[-4]  * df_GDP['不变价:农'].iloc[-1]  + df_GDP['现价:工'].iloc[-4]  * df_GDP['不变价:工'].iloc[-1]  + df_GDP['现价:建'].iloc[-4]  * df_GDP['不变价:建'].iloc[-1]  + df_GDP['现价:批'].iloc[-4] * df_GDP['不变价:批'].iloc[-1] + df_GDP['现价:交'].iloc[-4] * df_GDP['不变价:交'].iloc[-1] + df_GDP['现价:住'].iloc[-4] * df_GDP['不变价:住'].iloc[-1] + df_GDP['现价:金'].iloc[-4] * df_GDP['不变价:金'].iloc[-1] + df_GDP['现价:房'].iloc[-4] * df_GDP['不变价:房'].iloc[-1] + df_GDP['现价:其他'].iloc[-4] * df_GDP['不变价:其他'].iloc[-1]) / (df_GDP['现价:农'].iloc[-4] + df_GDP['现价:工'].iloc[-4] + df_GDP['现价:建'].iloc[-4] + df_GDP['现价:批'].iloc[-4] + df_GDP['现价:交'].iloc[-4] + df_GDP['现价:住'].iloc[-4] + df_GDP['现价:金'].iloc[-4] + df_GDP['现价:房'].iloc[-4] + df_GDP['现价:其他'].iloc[-4]  )* 100 - 100
+df_GDP
+
