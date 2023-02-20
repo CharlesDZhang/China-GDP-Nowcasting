@@ -22,3 +22,4 @@ GDP_YOY_SECTORS = GDP_YOY_SECTORS.drop(columns=['IN','LE'])
 GDP_NOM_SECTORS['OT'] = GDP_NOM_SECTORS[['IN', 'LE', 'OT']].sum(axis = 1)
 GDP_NOM_SECTORS = GDP_NOM_SECTORS.drop(columns=['IN','LE'])
 GDP_YOY_SECTORS
+#
